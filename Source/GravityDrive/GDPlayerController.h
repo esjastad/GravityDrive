@@ -34,6 +34,7 @@ class GRAVITYDRIVE_API AGDPlayerController : public APlayerController
 		UShipBuildWidget* BuildHud;
 
 	private:
+		//Function to get a player character reference
 		void SetPlayerChar();
 		//Timer for get pawn
 		FTimerHandle PlayerReadyTimer;
