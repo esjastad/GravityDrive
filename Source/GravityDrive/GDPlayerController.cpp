@@ -31,7 +31,9 @@ void AGDPlayerController::BeginPlay()
 
 	// Create the ship build hud
 	BuildHud = CreateWidget<UShipBuildWidget>(this, BuildHudClass);
-	
+
+	ControlRotation.Pitch = 320.0;
+
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("YOOOO HOOOOOO!"));
 }
 
@@ -78,12 +80,15 @@ void AGDPlayerController::HandleInteract()
 			Possess(cSHIPMANAGER);
 			BuildHud->AddToViewport();
 			bShowMouseCursor = true;
+			ControlRotation.Yaw = 0.0;
+			ControlRotation.Pitch = 320.0;
 			break;
 		case shipbuilder:
 			ePAWNMODE = character;
 			Possess(cPLAYERCHAR);
 			BuildHud->RemoveFromViewport();
 			bShowMouseCursor = false;
+			ControlRotation.Pitch = 320.0;
 			break;
 		case starship:
 			break;
