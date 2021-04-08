@@ -6,7 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "ShipBuilder/ShipManager.h"
 #include "Characters/GDBaseCharacter.h"
-#include "Enums.h"
+#include "Definitions.h"
 #include "ShipBuilder/UI/ShipBuildWidget.h"
 #include "GDPlayerController.generated.h"
 

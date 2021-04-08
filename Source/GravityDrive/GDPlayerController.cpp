@@ -72,9 +72,6 @@ void AGDPlayerController::HandleInteract()
 {
 	switch (ePAWNMODE)
 	{
-		case default:
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("PawnMode was default?!"));
-			break;
 		case character:
 			ePAWNMODE = shipbuilder;
 			Possess(cSHIPMANAGER);
