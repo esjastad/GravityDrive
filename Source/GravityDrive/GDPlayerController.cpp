@@ -34,7 +34,6 @@ void AGDPlayerController::BeginPlay()
 
 	ControlRotation.Pitch = 320.0;
 
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("YOOOO HOOOOOO!"));
 }
 
 // Get the current pawn and set a reference
