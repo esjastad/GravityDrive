@@ -31,6 +31,7 @@ void AGDPlayerController::BeginPlay()
 
 	// Create the ship build hud
 	BuildHud = CreateWidget<UShipBuildWidget>(this, BuildHudClass);
+	BuildHud->SetShipReference(cSHIPMANAGER);
 
 	ControlRotation.Pitch = 320.0;
 
