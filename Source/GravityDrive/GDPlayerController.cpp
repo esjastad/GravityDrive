@@ -27,7 +27,7 @@ void AGDPlayerController::BeginPlay()
 	cSHIPMANAGER = Cast<AShipManager>(FoundActors[0]);
 
 	// Set a small time delay to grab a reference to the player pawn that is spawned in
-	GetWorldTimerManager().SetTimer(PlayerReadyTimer, this, &AGDPlayerController::SetPlayerChar, 0.01f, false, true);
+	GetWorldTimerManager().SetTimer(PlayerReadyTimer, this, &AGDPlayerController::SetPlayerChar, 1.0f, false, 1.0f);
 
 	// Create the ship build hud
 	BuildHud = CreateWidget<UShipBuildWidget>(this, BuildHudClass);
