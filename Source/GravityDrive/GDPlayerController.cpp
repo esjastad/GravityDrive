@@ -25,6 +25,9 @@ void AGDPlayerController::BeginPlay()
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AShipManager::StaticClass(), FoundActors);
 	cSHIPMANAGER = Cast<AShipManager>(FoundActors[0]);
+	FoundActors.Empty();
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AShipFlight::StaticClass(), FoundActors);
+	cSHIPFLIGHT = Cast<AShipFlight>(FoundActors[0]);
 
 	// Set a small time delay to grab a reference to the player pawn that is spawned in
 	GetWorldTimerManager().SetTimer(PlayerReadyTimer, this, &AGDPlayerController::SetPlayerChar, 1.0f, false, 1.0f);
@@ -52,18 +55,43 @@ void AGDPlayerController::UpdateCanRotate()
 // Control Player Yaw Rotation
 void AGDPlayerController::UpdateControlRotationYaw(float Value)
 {
-	if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+	if (ePAWNMODE == character)
 	{
-		ControlRotation.Yaw += Value;
+		if (cPLAYERCHAR)
+			cPLAYERCHAR->TurnRight(Value);
+	}
+	else if (ePAWNMODE == starship)
+	{
+		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+			cSHIPMANAGER->TurnRight(Value);
+	}
+	else {
+		
+		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+		{
+			ControlRotation.Yaw += Value;
+		}
 	}
 }
 
 // Control Player Pitch Rotation
 void AGDPlayerController::UpdateControlRotationPitch(float Value)
 {
-	if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+	if (ePAWNMODE == character)
 	{
-		ControlRotation.Pitch += Value;
+		if (cPLAYERCHAR)
+			cPLAYERCHAR->LookUp(Value);
+	}
+	else if (ePAWNMODE == starship)
+	{
+		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+			cSHIPMANAGER->LookUp(Value);
+	}
+	else {
+		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+		{
+			ControlRotation.Pitch += Value;
+		}
 	}
 }
 
@@ -73,7 +101,7 @@ void AGDPlayerController::HandleInteract()
 	switch (ePAWNMODE)
 	{
 		case character:
-			ePAWNMODE = shipbuilder;
+			ePAWNMODE = starship;
 			Possess(cSHIPMANAGER);
 			BuildHud->AddToViewport();
 			bShowMouseCursor = true;
@@ -83,11 +111,18 @@ void AGDPlayerController::HandleInteract()
 		case shipbuilder:
 			ePAWNMODE = character;
 			Possess(cPLAYERCHAR);
-			BuildHud->RemoveFromViewport();
+			//BuildHud->RemoveFromViewport();
 			bShowMouseCursor = false;
-			ControlRotation.Pitch = 320.0;
+			ControlRotation.Pitch = 0.0;
+			ControlRotation.Yaw = 0.0;
 			break;
 		case starship:
+			ePAWNMODE = shipbuilder;
+			Possess(cSHIPFLIGHT);
+			BuildHud->RemoveFromViewport();
+			bShowMouseCursor = false;
+			ControlRotation.Yaw = 0.0;
+			ControlRotation.Pitch = 320.0;
 			break;
 		case turret:
 			break;

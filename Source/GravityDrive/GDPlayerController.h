@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "ShipBuilder/ShipManager.h"
+#include "ShipFlight/ShipFlight.h"
 #include "Characters/GDBaseCharacter.h"
 #include "Definitions.h"
 #include "ShipBuilder/UI/ShipBuildWidget.h"
@@ -46,5 +46,7 @@ class GRAVITYDRIVE_API AGDPlayerController : public APlayerController
 		AShipManager* cSHIPMANAGER;
 		//Player character reference
 		AGDBaseCharacter* cPLAYERCHAR;
+		//Ship flight reference
+		AShipFlight * cSHIPFLIGHT;
 
 };

@@ -2,9 +2,10 @@
 
 
 #include "GDBaseCharacter.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Default Constructor, Sets default values for class
-AGDBaseCharacter::AGDBaseCharacter()
+AGDBaseCharacter::AGDBaseCharacter(const FObjectInitializer& ObjectInitializer) : AGravityCharacter(ObjectInitializer)
 {
  	// Set this character to call Tick() every frame.
 	PrimaryActorTick.bCanEverTick = true;
@@ -16,6 +17,13 @@ AGDBaseCharacter::AGDBaseCharacter()
 	// Setup arm and camera heirarchy
 	CamSpringArm->SetupAttachment(RootComponent);
 	OTSCamera->SetupAttachment(CamSpringArm);
+	GravityDir = FVector(0);
+}
+
+// Update Gravity Orientation
+void AGDBaseCharacter::GravityUpdate(FVector GravityCenter)
+{
+	GravityDir = UKismetMathLibrary::GetDirectionUnitVector(GetActorLocation(), GravityCenter);
 }
 
 // Called when the game starts or when spawned
@@ -28,7 +36,14 @@ void AGDBaseCharacter::BeginPlay()
 void AGDBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	/*if (PC)
+	{
+		float test = PC->InputComponent->GetAxisKeyValue("LookRight");
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("value %f"), test));
+	}*/
+	
+	
+	//CamSpringArm->AddRelativeRotation(FRotator(0, 0, 0));
 }
 
 // Called to bind functionality to input
@@ -46,6 +61,17 @@ void AGDBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void AGDBaseCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+	PC = Cast<APlayerController>(NewController);
+}
+
+void AGDBaseCharacter::TurnRight(float Value)
+{
+	AddActorLocalRotation(FRotator(0,Value,0));
+}
+
+void AGDBaseCharacter::LookUp(float Value)
+{
+	CamSpringArm->AddRelativeRotation(FRotator(Value, 0, 0));
 }
 
 // Controls forward and backward movement, input set in SetupPlayerInputcomponent()
@@ -53,10 +79,8 @@ void AGDBaseCharacter::MoveForward(float Value)
 {
 	//If possessed and the input is not 0
 	if ((Controller) && Value != 0.0f) {
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		AddMovementInput(Direction, Value);
+		AddMovementInput(GetActorForwardVector(), Value);
+		
 	}
 }
 
@@ -65,10 +89,7 @@ void AGDBaseCharacter::MoveRight(float Value)
 {
 	//If possessed and the input is not 0
 	if ((Controller) && Value != 0.0f) {
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-		AddMovementInput(Direction, Value);
+		AddMovementInput(GetActorRightVector(), Value);
 	}
 }
 
