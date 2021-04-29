@@ -25,6 +25,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual void PossessedBy(AController* NewController) override;
+	virtual void UnPossessed() override;
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void TurnRight(float Value);

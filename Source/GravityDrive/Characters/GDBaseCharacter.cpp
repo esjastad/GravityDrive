@@ -70,6 +70,14 @@ void AGDBaseCharacter::PossessedBy(AController* NewController)
 	PC = Cast<APlayerController>(NewController);
 }
 
+void AGDBaseCharacter::UnPossessed()
+{
+	if (PC)
+	{
+		this->SpawnDefaultController();
+	}
+}
+
 void AGDBaseCharacter::TurnRight(float Value)
 {
 	AddActorLocalRotation(FRotator(0,Value,0));

@@ -65,6 +65,11 @@ void AGDPlayerController::UpdateControlRotationYaw(float Value)
 		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
 			cSHIPMANAGER->TurnRight(Value);
 	}
+	else if (ePAWNMODE == shipbuilder)
+	{
+		if (Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+			cSHIPFLIGHT->TurnRight(Value);
+	}
 	else {
 		
 		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
@@ -86,6 +91,11 @@ void AGDPlayerController::UpdateControlRotationPitch(float Value)
 	{
 		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
 			cSHIPMANAGER->LookUp(Value);
+	}
+	else if (ePAWNMODE == shipbuilder)
+	{
+		if (Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
+			cSHIPFLIGHT->LookUp(Value);
 	}
 	else {
 		if (bMMB && Value != 0.0f || !bShowMouseCursor && Value != 0.0f)
