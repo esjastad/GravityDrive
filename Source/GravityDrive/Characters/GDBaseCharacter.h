@@ -46,5 +46,5 @@ protected:
 	USpringArmComponent* CamSpringArm;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UCameraComponent* OTSCamera;
-
+	AActor * GravityActor;
 };

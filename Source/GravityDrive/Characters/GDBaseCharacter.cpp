@@ -3,6 +3,7 @@
 
 #include "GDBaseCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "../ShipFlight/ShipFlight.h"
 
 // Default Constructor, Sets default values for class
 AGDBaseCharacter::AGDBaseCharacter(const FObjectInitializer& ObjectInitializer) : AGravityCharacter(ObjectInitializer)
@@ -30,12 +31,17 @@ void AGDBaseCharacter::GravityUpdate(FVector GravityCenter)
 void AGDBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AShipFlight::StaticClass(), FoundActors);
+	GravityActor = FoundActors[0];
+
 }
 
 // Called every frame
 void AGDBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	GravityUpdate(GravityActor->GetActorUpVector() * -50000);
 	/*if (PC)
 	{
 		float test = PC->InputComponent->GetAxisKeyValue("LookRight");
@@ -71,7 +77,8 @@ void AGDBaseCharacter::TurnRight(float Value)
 
 void AGDBaseCharacter::LookUp(float Value)
 {
-	CamSpringArm->AddRelativeRotation(FRotator(Value, 0, 0));
+	CamSpringArm->AddRelativeRotation((abs(CamSpringArm->GetRelativeRotation().Pitch + Value) >= 90.0) ? FRotator(0, 0, 0) : FRotator(Value, 0, 0));
+	//CamSpringArm->AddRelativeRotation(FRotator(Value, 0, 0));
 }
 
 // Controls forward and backward movement, input set in SetupPlayerInputcomponent()
