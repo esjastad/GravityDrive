@@ -42,14 +42,7 @@ void AGDBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	GravityUpdate(GravityActor->GetActorUpVector() * -50000);
-	/*if (PC)
-	{
-		float test = PC->InputComponent->GetAxisKeyValue("LookRight");
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("value %f"), test));
-	}*/
 	
-	
-	//CamSpringArm->AddRelativeRotation(FRotator(0, 0, 0));
 }
 
 // Called to bind functionality to input
@@ -88,7 +81,6 @@ void AGDBaseCharacter::TurnRight(float Value)
 void AGDBaseCharacter::LookUp(float Value)
 {
 	CamSpringArm->AddRelativeRotation((abs(CamSpringArm->GetRelativeRotation().Pitch + Value) >= 90.0) ? FRotator(0, 0, 0) : FRotator(Value, 0, 0));
-	//CamSpringArm->AddRelativeRotation(FRotator(Value, 0, 0));
 }
 
 // Controls forward and backward movement, input set in SetupPlayerInputcomponent()
@@ -96,8 +88,7 @@ void AGDBaseCharacter::MoveForward(float Value)
 {
 	//If possessed and the input is not 0
 	if ((Controller) && Value != 0.0f) {
-		AddMovementInput(GetActorForwardVector(), Value);
-		
+		AddMovementInput(GetActorForwardVector(), Value);		
 	}
 }
 
