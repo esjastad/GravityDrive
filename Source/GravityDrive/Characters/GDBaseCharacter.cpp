@@ -61,6 +61,8 @@ void AGDBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	InputComponent->BindAxis("MoveRight", this, &AGDBaseCharacter::MoveRight);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &AGDBaseCharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &AGDBaseCharacter::StopJumping);
+	InputComponent->BindAxis("LookRight", this, &AGDBaseCharacter::TurnRight);
+	InputComponent->BindAxis("LookUp", this, &AGDBaseCharacter::LookUp);
 }
 
 // Called when possessed by a new controller

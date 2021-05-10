@@ -17,9 +17,6 @@ class GRAVITYDRIVE_API AGDGameMode : public AGameModeBase
 	GENERATED_BODY()
 	public:
 		virtual void StartPlay() override;
-		AGDGameMode () 
-		{
-			PlayerControllerClass = AGDPlayerController::StaticClass();
-		}
+		AGDGameMode();
 
 };
