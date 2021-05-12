@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-//#include "GameFramework/Character.h"
 #include "GravityMovementComponent.h"
 #include "GravityCharacter.h"
 #include "Components/StaticMeshComponent.h"
@@ -13,6 +12,7 @@
 
 /*
  * A Gravity Drive Character Class, this is the base class for all game characters
+ * Includes a directed gravity component for orienting towards a new gravity.
  */
 UCLASS()
 class GRAVITYDRIVE_API AGDBaseCharacter : public AGravityCharacter
@@ -20,32 +20,28 @@ class GRAVITYDRIVE_API AGDBaseCharacter : public AGravityCharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	AGDBaseCharacter(const FObjectInitializer& ObjectInitializer);
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	virtual void PossessedBy(AController* NewController) override;
-	virtual void UnPossessed() override;
-	void MoveForward(float Value);
-	void MoveRight(float Value);
-	void TurnRight(float Value);
-	void LookUp(float Value);
-	void GravityUpdate(FVector GravityCenter);
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	AGDBaseCharacter(const FObjectInitializer& ObjectInitializer);		// Sets default values for this character's properties
+	virtual void Tick(float DeltaTime) override;		// Called every frame
+	virtual void PossessedBy(AController* NewController) override;		// Called when possessed
+	virtual void UnPossessed() override;	// Called when unpossessed
+	void MoveForward(float Value);		// Controls Forward/Backward movement
+	void MoveRight(float Value);		// Controls Right/Left movement
+	void TurnRight(float Value);		// Controls Turning/Looking Right/Left
+	void LookUp(float Value);		// Controls Turning/Looking Up/Down
+	void GravityUpdate(FVector GravityCenter);		// Updates the gravity orientation based on a "normal" vector input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;	// Called when possessed to bind functionality to inputs
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FVector GravityDir;
-	APlayerController * PC;
+	FVector GravityDir;		// Blueprint exposed vector that indicates what the GravityDir is/should be
+	APlayerController * PC;		// Reference to a base class player controller
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	// Add SpringArm and Camera
+	virtual void BeginPlay() override;		// Called when the game starts or when spawned
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USpringArmComponent* CamSpringArm;
+	USpringArmComponent* CamSpringArm;		// Add SpringArm and expose it in BP
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UCameraComponent* OTSCamera;
-	AActor * GravityActor;
+	UCameraComponent* OTSCamera;		// Add Camera and expose it in BP
+	AActor * GravityActor;		// Reference to gravity creating actor, such as the SHIP or a PLANET
 };

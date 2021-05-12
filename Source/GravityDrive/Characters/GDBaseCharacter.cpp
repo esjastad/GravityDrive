@@ -65,6 +65,7 @@ void AGDBaseCharacter::PossessedBy(AController* NewController)
 	PC = Cast<APlayerController>(NewController);
 }
 
+// Called when unpossessed, spawn a default controller to continue simulation on the character
 void AGDBaseCharacter::UnPossessed()
 {
 	if (PC)
@@ -73,11 +74,13 @@ void AGDBaseCharacter::UnPossessed()
 	}
 }
 
+// Controls looking/turning right
 void AGDBaseCharacter::TurnRight(float Value)
 {
 	AddActorLocalRotation(FRotator(0,Value,0));
 }
 
+// Controls looking up
 void AGDBaseCharacter::LookUp(float Value)
 {
 	CamSpringArm->AddRelativeRotation((abs(CamSpringArm->GetRelativeRotation().Pitch + Value) >= 90.0) ? FRotator(0, 0, 0) : FRotator(Value, 0, 0));
