@@ -41,7 +41,8 @@ void AGDBaseCharacter::BeginPlay()
 void AGDBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	GravityUpdate(GravityActor->GetActorUpVector() * -50000);
+	FVector NewGravity = GetActorLocation() + (GravityActor->GetActorUpVector() * -50000);
+	GravityUpdate(NewGravity);
 	
 }
 
