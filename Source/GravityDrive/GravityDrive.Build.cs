@@ -8,7 +8,7 @@ public class GravityDrive : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	    //Add plugin names as needed
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Voxel", "DirGravity" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Voxel", "DirGravity"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
