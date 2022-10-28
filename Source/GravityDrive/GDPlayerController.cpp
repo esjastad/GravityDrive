@@ -5,7 +5,7 @@
 // Default constructor
 AGDPlayerController::AGDPlayerController()
 {
-	ePAWNMODE = character; //default mode
+//	ePAWNMODE = character; //default mode
 }
 
 // Called when game play starts
@@ -13,10 +13,10 @@ void AGDPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	// Bind user inputs to relative functions
-	InputComponent->BindAction("Interact", IE_Pressed, this, &AGDPlayerController::CyclePossession);
+	//InputComponent->BindAction("Interact", IE_Pressed, this, &AGDPlayerController::CyclePossession);
 	
 	// Get the Ship Manager Ref
-	TArray<AActor*> FoundActors;
+	/*TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AShipManager::StaticClass(), FoundActors);
 	cSHIPMANAGER = Cast<AShipManager>(FoundActors[0]);
 	// Get the Ship Flyer Ref
@@ -30,12 +30,12 @@ void AGDPlayerController::BeginPlay()
 
 	//Get the Player Ref. Since the player is spawned after the controller; a delay is needed to obtain this reference
 	_sleep(100);
-	cPLAYERCHAR = Cast<AGDBaseCharacter>(GetPawn());
+	cPLAYERCHAR = Cast<AGDBaseCharacter>(GetPawn());*/
 }
 
 // Currently cycles which pawn is possessed, F key, Input is called "Interact"
 // Toggles pawn controlled, showing mouse cursor and hud displaying
-void AGDPlayerController::CyclePossession()
+/*void AGDPlayerController::CyclePossession()
 {
 	switch (ePAWNMODE)
 	{
@@ -57,8 +57,11 @@ void AGDPlayerController::CyclePossession()
 			bShowMouseCursor = false;	
 			break;
 		case turret:
+			ePAWNMODE = turret;
+			//Possess();
+			bShowMouseCursor = true;
 			break;
 		case pilot:
 			break;
 	}
-}
+}*/

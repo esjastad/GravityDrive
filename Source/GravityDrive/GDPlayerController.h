@@ -22,24 +22,24 @@ class GRAVITYDRIVE_API AGDPlayerController : public APlayerController
 	public:
 		AGDPlayerController(); // Default Constructor
 		virtual void BeginPlay() override; //BeginPlay called when the game starts
-		void CyclePossession(); // Handles swapping pawn control
+		//void CyclePossession(); // Handles swapping pawn control
 		
 		// Hud subclass reference, set this in the BP child.
-		UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TSubclassOf<UShipBuildWidget> BuildHudClass;
+		//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		//TSubclassOf<UShipBuildWidget> BuildHudClass;
 		// Reference to spawned subclass
 		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UShipBuildWidget* BuildHud;
 
 	private:
 		//Enum current pawn mode
-		PawnMode ePAWNMODE;
+		/*PawnMode ePAWNMODE;
 
 		//Ship manager Reference
 		AShipManager* cSHIPMANAGER;
 		//Player character reference
 		AGDBaseCharacter* cPLAYERCHAR;
 		//Ship flight reference
-		AShipFlight * cSHIPFLIGHT;
+		AShipFlight * cSHIPFLIGHT;*/
 
 };
